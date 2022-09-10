@@ -1,0 +1,721 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLDIENTHOAIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CTHOADON">
+          <Key>
+            <PropertyRef Name="ID_HoaDon" />
+            <PropertyRef Name="ID_DienThoai" />
+          </Key>
+          <Property Name="ID_HoaDon" Type="int" Nullable="false" />
+          <Property Name="ID_DienThoai" Type="int" Nullable="false" />
+          <Property Name="soLuongMua" Type="int" Nullable="false" />
+          <Property Name="ID_User" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DIENTHOAI">
+          <Key>
+            <PropertyRef Name="ID_dienThoai" />
+          </Key>
+          <Property Name="ID_dienThoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenDienThoai" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="soLuongTon" Type="int" Nullable="false" />
+          <Property Name="donGia" Type="money" />
+          <Property Name="hinhAnh" Type="nvarchar" MaxLength="150" />
+          <Property Name="moTa" Type="text" />
+          <Property Name="ID_LoaiDT" Type="int" Nullable="false" />
+          <Property Name="ID_HangDT" Type="int" Nullable="false" />
+          <Property Name="ghiChu" Type="text" />
+          <Property Name="hanBaoHanh" Type="date" />
+          <Property Name="thongSoKyThuat" Type="text" />
+        </EntityType>
+        <EntityType Name="HANGDT">
+          <Key>
+            <PropertyRef Name="ID_HangDT" />
+          </Key>
+          <Property Name="ID_HangDT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenHang" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="moTa" Type="text" Nullable="false" />
+          <Property Name="ghiChu" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HOADON">
+          <Key>
+            <PropertyRef Name="ID_HoaDon" />
+          </Key>
+          <Property Name="ID_HoaDon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_KhachHang" Type="int" Nullable="false" />
+          <Property Name="ngayLap" Type="date" Nullable="false" />
+          <Property Name="ghiChu" Type="text" />
+          <Property Name="ngayGiaoHang" Type="date" Nullable="false" />
+          <Property Name="ngayNhanHang" Type="date" />
+          <Property Name="thanhtien" Type="money" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="ID_KhachHang" />
+          </Key>
+          <Property Name="ID_KhachHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SDT" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="tenKhachHang" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="diaChi" Type="text" Nullable="false" />
+          <Property Name="SCMND" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOAIDT">
+          <Key>
+            <PropertyRef Name="ID_LoaiDT" />
+          </Key>
+          <Property Name="ID_LoaiDT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenLoaiDT" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="moTa" Type="text" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="ID_Role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ghiChu" Type="text" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taiKhoan" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="matKhau" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="SDT" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="gioitinh" Type="bit" />
+          <Property Name="tenNhanVien" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="diaChi" Type="text" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+          <Property Name="luong" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CTHOADON__ID_Die__4AB81AF0">
+          <End Role="DIENTHOAI" Type="Self.DIENTHOAI" Multiplicity="1" />
+          <End Role="CTHOADON" Type="Self.CTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIENTHOAI">
+              <PropertyRef Name="ID_dienThoai" />
+            </Principal>
+            <Dependent Role="CTHOADON">
+              <PropertyRef Name="ID_DienThoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CTHOADON__ID_Hoa__49C3F6B7">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
+          <End Role="CTHOADON" Type="Self.CTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADON">
+              <PropertyRef Name="ID_HoaDon" />
+            </Principal>
+            <Dependent Role="CTHOADON">
+              <PropertyRef Name="ID_HoaDon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CTHOADON__ID_Use__4BAC3F29">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="CTHOADON" Type="Self.CTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="CTHOADON">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIENTHOAI__ID_Ha__3E52440B">
+          <End Role="HANGDT" Type="Self.HANGDT" Multiplicity="1" />
+          <End Role="DIENTHOAI" Type="Self.DIENTHOAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HANGDT">
+              <PropertyRef Name="ID_HangDT" />
+            </Principal>
+            <Dependent Role="DIENTHOAI">
+              <PropertyRef Name="ID_HangDT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIENTHOAI__ID_Lo__3D5E1FD2">
+          <End Role="LOAIDT" Type="Self.LOAIDT" Multiplicity="1" />
+          <End Role="DIENTHOAI" Type="Self.DIENTHOAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIDT">
+              <PropertyRef Name="ID_LoaiDT" />
+            </Principal>
+            <Dependent Role="DIENTHOAI">
+              <PropertyRef Name="ID_LoaiDT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__ID_Khach__46E78A0C">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="ID_KhachHang" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="ID_KhachHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USER__role__440B1D61">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_SuaNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idnv" Type="int" Mode="In" />
+          <Parameter Name="tennv" Type="nvarchar" Mode="In" />
+          <Parameter Name="diachi" Type="nvarchar" Mode="In" />
+          <Parameter Name="gioitinh" Type="bit" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="sdt" Type="varchar" Mode="In" />
+          <Parameter Name="matkhau" Type="varchar" Mode="In" />
+          <Parameter Name="role" Type="int" Mode="In" />
+          <Parameter Name="luong" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ThemNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tennv" Type="nvarchar" Mode="In" />
+          <Parameter Name="diachi" Type="nvarchar" Mode="In" />
+          <Parameter Name="gioitinh" Type="bit" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="sdt" Type="varchar" Mode="In" />
+          <Parameter Name="taikhoan" Type="varchar" Mode="In" />
+          <Parameter Name="matkhau" Type="varchar" Mode="In" />
+          <Parameter Name="role" Type="int" Mode="In" />
+          <Parameter Name="luong" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ThongTinUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_TimKiemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ten" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_TimKiemSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tensanpham" Type="nvarchar" Mode="In" />
+          <Parameter Name="hangdienthoai" Type="varchar" Mode="In" />
+          <Parameter Name="loaidienthoai" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_XoaNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="QLDIENTHOAIModelStoreContainer">
+          <EntitySet Name="CTHOADON" EntityType="Self.CTHOADON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIENTHOAI" EntityType="Self.DIENTHOAI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HANGDT" EntityType="Self.HANGDT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOADON" EntityType="Self.HOADON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAIDT" EntityType="Self.LOAIDT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CTHOADON__ID_Die__4AB81AF0" Association="Self.FK__CTHOADON__ID_Die__4AB81AF0">
+            <End Role="DIENTHOAI" EntitySet="DIENTHOAI" />
+            <End Role="CTHOADON" EntitySet="CTHOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CTHOADON__ID_Hoa__49C3F6B7" Association="Self.FK__CTHOADON__ID_Hoa__49C3F6B7">
+            <End Role="HOADON" EntitySet="HOADON" />
+            <End Role="CTHOADON" EntitySet="CTHOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CTHOADON__ID_Use__4BAC3F29" Association="Self.FK__CTHOADON__ID_Use__4BAC3F29">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="CTHOADON" EntitySet="CTHOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIENTHOAI__ID_Ha__3E52440B" Association="Self.FK__DIENTHOAI__ID_Ha__3E52440B">
+            <End Role="HANGDT" EntitySet="HANGDT" />
+            <End Role="DIENTHOAI" EntitySet="DIENTHOAI" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIENTHOAI__ID_Lo__3D5E1FD2" Association="Self.FK__DIENTHOAI__ID_Lo__3D5E1FD2">
+            <End Role="LOAIDT" EntitySet="LOAIDT" />
+            <End Role="DIENTHOAI" EntitySet="DIENTHOAI" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__ID_Khach__46E78A0C" Association="Self.FK__HOADON__ID_Khach__46E78A0C">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="HOADON" EntitySet="HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USER__role__440B1D61" Association="Self.FK__USER__role__440B1D61">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLDIENTHOAIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CTHOADON">
+          <Key>
+            <PropertyRef Name="ID_HoaDon" />
+            <PropertyRef Name="ID_DienThoai" />
+          </Key>
+          <Property Name="ID_HoaDon" Type="Int32" Nullable="false" />
+          <Property Name="ID_DienThoai" Type="Int32" Nullable="false" />
+          <Property Name="soLuongMua" Type="Int32" Nullable="false" />
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DIENTHOAI" Relationship="Self.FK__CTHOADON__ID_Die__4AB81AF0" FromRole="CTHOADON" ToRole="DIENTHOAI" />
+          <NavigationProperty Name="HOADON" Relationship="Self.FK__CTHOADON__ID_Hoa__49C3F6B7" FromRole="CTHOADON" ToRole="HOADON" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__CTHOADON__ID_Use__4BAC3F29" FromRole="CTHOADON" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="DIENTHOAI">
+          <Key>
+            <PropertyRef Name="ID_dienThoai" />
+          </Key>
+          <Property Name="ID_dienThoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenDienThoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soLuongTon" Type="Int32" Nullable="false" />
+          <Property Name="donGia" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="hinhAnh" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="moTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID_LoaiDT" Type="Int32" Nullable="false" />
+          <Property Name="ID_HangDT" Type="Int32" Nullable="false" />
+          <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="hanBaoHanh" Type="DateTime" Precision="0" />
+          <Property Name="thongSoKyThuat" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CTHOADONs" Relationship="Self.FK__CTHOADON__ID_Die__4AB81AF0" FromRole="DIENTHOAI" ToRole="CTHOADON" />
+          <NavigationProperty Name="HANGDT" Relationship="Self.FK__DIENTHOAI__ID_Ha__3E52440B" FromRole="DIENTHOAI" ToRole="HANGDT" />
+          <NavigationProperty Name="LOAIDT" Relationship="Self.FK__DIENTHOAI__ID_Lo__3D5E1FD2" FromRole="DIENTHOAI" ToRole="LOAIDT" />
+        </EntityType>
+        <EntityType Name="HANGDT">
+          <Key>
+            <PropertyRef Name="ID_HangDT" />
+          </Key>
+          <Property Name="ID_HangDT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="moTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DIENTHOAIs" Relationship="Self.FK__DIENTHOAI__ID_Ha__3E52440B" FromRole="HANGDT" ToRole="DIENTHOAI" />
+        </EntityType>
+        <EntityType Name="HOADON">
+          <Key>
+            <PropertyRef Name="ID_HoaDon" />
+          </Key>
+          <Property Name="ID_HoaDon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_KhachHang" Type="Int32" Nullable="false" />
+          <Property Name="ngayLap" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ngayGiaoHang" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ngayNhanHang" Type="DateTime" Precision="0" />
+          <Property Name="thanhtien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="CTHOADONs" Relationship="Self.FK__CTHOADON__ID_Hoa__49C3F6B7" FromRole="HOADON" ToRole="CTHOADON" />
+          <NavigationProperty Name="KHACHHANG" Relationship="Self.FK__HOADON__ID_Khach__46E78A0C" FromRole="HOADON" ToRole="KHACHHANG" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="ID_KhachHang" />
+          </Key>
+          <Property Name="ID_KhachHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tenKhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="diaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SCMND" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HOADONs" Relationship="Self.FK__HOADON__ID_Khach__46E78A0C" FromRole="KHACHHANG" ToRole="HOADON" />
+        </EntityType>
+        <EntityType Name="LOAIDT">
+          <Key>
+            <PropertyRef Name="ID_LoaiDT" />
+          </Key>
+          <Property Name="ID_LoaiDT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenLoaiDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="moTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIENTHOAIs" Relationship="Self.FK__DIENTHOAI__ID_Lo__3D5E1FD2" FromRole="LOAIDT" ToRole="DIENTHOAI" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="ID_Role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ghiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USERs" Relationship="Self.FK__USER__role__440B1D61" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="matKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gioitinh" Type="Boolean" />
+          <Property Name="tenNhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="diaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="luong" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CTHOADONs" Relationship="Self.FK__CTHOADON__ID_Use__4BAC3F29" FromRole="USER" ToRole="CTHOADON" />
+          <NavigationProperty Name="ROLE1" Relationship="Self.FK__USER__role__440B1D61" FromRole="USER" ToRole="ROLE" />
+        </EntityType>
+        <Association Name="FK__CTHOADON__ID_Die__4AB81AF0">
+          <End Role="DIENTHOAI" Type="Self.DIENTHOAI" Multiplicity="1" />
+          <End Role="CTHOADON" Type="Self.CTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIENTHOAI">
+              <PropertyRef Name="ID_dienThoai" />
+            </Principal>
+            <Dependent Role="CTHOADON">
+              <PropertyRef Name="ID_DienThoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CTHOADON__ID_Hoa__49C3F6B7">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
+          <End Role="CTHOADON" Type="Self.CTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADON">
+              <PropertyRef Name="ID_HoaDon" />
+            </Principal>
+            <Dependent Role="CTHOADON">
+              <PropertyRef Name="ID_HoaDon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CTHOADON__ID_Use__4BAC3F29">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="CTHOADON" Type="Self.CTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="CTHOADON">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIENTHOAI__ID_Ha__3E52440B">
+          <End Role="HANGDT" Type="Self.HANGDT" Multiplicity="1" />
+          <End Role="DIENTHOAI" Type="Self.DIENTHOAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HANGDT">
+              <PropertyRef Name="ID_HangDT" />
+            </Principal>
+            <Dependent Role="DIENTHOAI">
+              <PropertyRef Name="ID_HangDT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIENTHOAI__ID_Lo__3D5E1FD2">
+          <End Role="LOAIDT" Type="Self.LOAIDT" Multiplicity="1" />
+          <End Role="DIENTHOAI" Type="Self.DIENTHOAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIDT">
+              <PropertyRef Name="ID_LoaiDT" />
+            </Principal>
+            <Dependent Role="DIENTHOAI">
+              <PropertyRef Name="ID_LoaiDT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__ID_Khach__46E78A0C">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="ID_KhachHang" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="ID_KhachHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USER__role__440B1D61">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CTHOADONs" EntityType="Self.CTHOADON" />
+          <EntitySet Name="DIENTHOAIs" EntityType="Self.DIENTHOAI" />
+          <EntitySet Name="HANGDTs" EntityType="Self.HANGDT" />
+          <EntitySet Name="HOADONs" EntityType="Self.HOADON" />
+          <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
+          <EntitySet Name="LOAIDTs" EntityType="Self.LOAIDT" />
+          <EntitySet Name="ROLEs" EntityType="Self.ROLE" />
+          <EntitySet Name="USERs" EntityType="Self.USER" />
+          <AssociationSet Name="FK__CTHOADON__ID_Die__4AB81AF0" Association="Self.FK__CTHOADON__ID_Die__4AB81AF0">
+            <End Role="DIENTHOAI" EntitySet="DIENTHOAIs" />
+            <End Role="CTHOADON" EntitySet="CTHOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CTHOADON__ID_Hoa__49C3F6B7" Association="Self.FK__CTHOADON__ID_Hoa__49C3F6B7">
+            <End Role="HOADON" EntitySet="HOADONs" />
+            <End Role="CTHOADON" EntitySet="CTHOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CTHOADON__ID_Use__4BAC3F29" Association="Self.FK__CTHOADON__ID_Use__4BAC3F29">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="CTHOADON" EntitySet="CTHOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIENTHOAI__ID_Ha__3E52440B" Association="Self.FK__DIENTHOAI__ID_Ha__3E52440B">
+            <End Role="HANGDT" EntitySet="HANGDTs" />
+            <End Role="DIENTHOAI" EntitySet="DIENTHOAIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIENTHOAI__ID_Lo__3D5E1FD2" Association="Self.FK__DIENTHOAI__ID_Lo__3D5E1FD2">
+            <End Role="LOAIDT" EntitySet="LOAIDTs" />
+            <End Role="DIENTHOAI" EntitySet="DIENTHOAIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__ID_Khach__46E78A0C" Association="Self.FK__HOADON__ID_Khach__46E78A0C">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="HOADON" EntitySet="HOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USER__role__440B1D61" Association="Self.FK__USER__role__440B1D61">
+            <End Role="ROLE" EntitySet="ROLEs" />
+            <End Role="USER" EntitySet="USERs" />
+          </AssociationSet>
+          <FunctionImport Name="sp_SuaNguoiDung">
+            <Parameter Name="idnv" Mode="In" Type="Int32" />
+            <Parameter Name="tennv" Mode="In" Type="String" />
+            <Parameter Name="diachi" Mode="In" Type="String" />
+            <Parameter Name="gioitinh" Mode="In" Type="Boolean" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="sdt" Mode="In" Type="String" />
+            <Parameter Name="matkhau" Mode="In" Type="String" />
+            <Parameter Name="role" Mode="In" Type="Int32" />
+            <Parameter Name="luong" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ThemNguoiDung">
+            <Parameter Name="tennv" Mode="In" Type="String" />
+            <Parameter Name="diachi" Mode="In" Type="String" />
+            <Parameter Name="gioitinh" Mode="In" Type="Boolean" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="sdt" Mode="In" Type="String" />
+            <Parameter Name="taikhoan" Mode="In" Type="String" />
+            <Parameter Name="matkhau" Mode="In" Type="String" />
+            <Parameter Name="role" Mode="In" Type="Int32" />
+            <Parameter Name="luong" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ThongTinUsers" ReturnType="Collection(QLDIENTHOAIModel.sp_ThongTinUsers_Result)" />
+          <FunctionImport Name="sp_TimKiemKhachHang" ReturnType="Collection(QLDIENTHOAIModel.sp_TimKiemKhachHang_Result)">
+            <Parameter Name="ten" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TimKiemSanPham" ReturnType="Collection(QLDIENTHOAIModel.sp_TimKiemSanPham_Result)">
+            <Parameter Name="tensanpham" Mode="In" Type="String" />
+            <Parameter Name="hangdienthoai" Mode="In" Type="String" />
+            <Parameter Name="loaidienthoai" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_XoaNguoiDung">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_ThongTinUsers_Result">
+          <Property Type="Int32" Name="ID_User" Nullable="false" />
+          <Property Type="String" Name="tenNhanVien" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="diaChi" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="gioiTinh" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SDT" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="taiKhoan" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="matKhau" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="tenRole" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="luong" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_TimKiemKhachHang_Result">
+          <Property Type="Int32" Name="ID_KhachHang" Nullable="false" />
+          <Property Type="String" Name="tenKhachHang" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="diaChi" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="SCMND" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="SDT" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_TimKiemSanPham_Result">
+          <Property Type="Int32" Name="ID_dienThoai" Nullable="false" />
+          <Property Type="String" Name="tenDienThoai" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="soLuongTon" Nullable="false" />
+          <Property Type="Decimal" Name="donGia" Nullable="true" Precision="19" />
+          <Property Type="String" Name="tenHang" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="tenLoaiDT" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="hanBaoHanh" Nullable="true" />
+          <Property Type="String" Name="ghiChu" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="moTa" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="hinhAnh" Nullable="true" MaxLength="150" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLDIENTHOAIModelStoreContainer" CdmEntityContainer="DataContext">
+          <EntitySetMapping Name="CTHOADONs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.CTHOADON">
+              <MappingFragment StoreEntitySet="CTHOADON">
+                <ScalarProperty Name="ID_HoaDon" ColumnName="ID_HoaDon" />
+                <ScalarProperty Name="ID_DienThoai" ColumnName="ID_DienThoai" />
+                <ScalarProperty Name="soLuongMua" ColumnName="soLuongMua" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIENTHOAIs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.DIENTHOAI">
+              <MappingFragment StoreEntitySet="DIENTHOAI">
+                <ScalarProperty Name="ID_dienThoai" ColumnName="ID_dienThoai" />
+                <ScalarProperty Name="tenDienThoai" ColumnName="tenDienThoai" />
+                <ScalarProperty Name="soLuongTon" ColumnName="soLuongTon" />
+                <ScalarProperty Name="donGia" ColumnName="donGia" />
+                <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
+                <ScalarProperty Name="moTa" ColumnName="moTa" />
+                <ScalarProperty Name="ID_LoaiDT" ColumnName="ID_LoaiDT" />
+                <ScalarProperty Name="ID_HangDT" ColumnName="ID_HangDT" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="hanBaoHanh" ColumnName="hanBaoHanh" />
+                <ScalarProperty Name="thongSoKyThuat" ColumnName="thongSoKyThuat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HANGDTs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.HANGDT">
+              <MappingFragment StoreEntitySet="HANGDT">
+                <ScalarProperty Name="ID_HangDT" ColumnName="ID_HangDT" />
+                <ScalarProperty Name="tenHang" ColumnName="tenHang" />
+                <ScalarProperty Name="moTa" ColumnName="moTa" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOADONs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.HOADON">
+              <MappingFragment StoreEntitySet="HOADON">
+                <ScalarProperty Name="ID_HoaDon" ColumnName="ID_HoaDon" />
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
+                <ScalarProperty Name="ngayLap" ColumnName="ngayLap" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="ngayGiaoHang" ColumnName="ngayGiaoHang" />
+                <ScalarProperty Name="ngayNhanHang" ColumnName="ngayNhanHang" />
+                <ScalarProperty Name="thanhtien" ColumnName="thanhtien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="tenKhachHang" ColumnName="tenKhachHang" />
+                <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+                <ScalarProperty Name="SCMND" ColumnName="SCMND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAIDTs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.LOAIDT">
+              <MappingFragment StoreEntitySet="LOAIDT">
+                <ScalarProperty Name="ID_LoaiDT" ColumnName="ID_LoaiDT" />
+                <ScalarProperty Name="tenLoaiDT" ColumnName="tenLoaiDT" />
+                <ScalarProperty Name="moTa" ColumnName="moTa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLEs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+                <ScalarProperty Name="tenRole" ColumnName="tenRole" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERs">
+            <EntityTypeMapping TypeName="QLDIENTHOAIModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+                <ScalarProperty Name="matKhau" ColumnName="matKhau" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+                <ScalarProperty Name="tenNhanVien" ColumnName="tenNhanVien" />
+                <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="luong" ColumnName="luong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_SuaNguoiDung" FunctionName="QLDIENTHOAIModel.Store.sp_SuaNguoiDung" />
+          <FunctionImportMapping FunctionImportName="sp_ThemNguoiDung" FunctionName="QLDIENTHOAIModel.Store.sp_ThemNguoiDung" />
+          <FunctionImportMapping FunctionImportName="sp_ThongTinUsers" FunctionName="QLDIENTHOAIModel.Store.sp_ThongTinUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLDIENTHOAIModel.sp_ThongTinUsers_Result">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="tenNhanVien" ColumnName="tenNhanVien" />
+                <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+                <ScalarProperty Name="gioiTinh" ColumnName="gioiTinh" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+                <ScalarProperty Name="matKhau" ColumnName="matKhau" />
+                <ScalarProperty Name="tenRole" ColumnName="tenRole" />
+                <ScalarProperty Name="luong" ColumnName="luong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_TimKiemKhachHang" FunctionName="QLDIENTHOAIModel.Store.sp_TimKiemKhachHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLDIENTHOAIModel.sp_TimKiemKhachHang_Result">
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
+                <ScalarProperty Name="tenKhachHang" ColumnName="tenKhachHang" />
+                <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+                <ScalarProperty Name="SCMND" ColumnName="SCMND" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_TimKiemSanPham" FunctionName="QLDIENTHOAIModel.Store.sp_TimKiemSanPham">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLDIENTHOAIModel.sp_TimKiemSanPham_Result">
+                <ScalarProperty Name="ID_dienThoai" ColumnName="ID_dienThoai" />
+                <ScalarProperty Name="tenDienThoai" ColumnName="tenDienThoai" />
+                <ScalarProperty Name="soLuongTon" ColumnName="soLuongTon" />
+                <ScalarProperty Name="donGia" ColumnName="donGia" />
+                <ScalarProperty Name="tenHang" ColumnName="tenHang" />
+                <ScalarProperty Name="tenLoaiDT" ColumnName="tenLoaiDT" />
+                <ScalarProperty Name="hanBaoHanh" ColumnName="hanBaoHanh" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="moTa" ColumnName="moTa" />
+                <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_XoaNguoiDung" FunctionName="QLDIENTHOAIModel.Store.sp_XoaNguoiDung" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
